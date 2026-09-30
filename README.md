@@ -1,14 +1,47 @@
-# Wardogs NoLimits – neutral version
+# Wardogs NoLimits
 
-Pixelnahe Umsetzung des bereitgestellten 1536×1024 Designs ohne den starken Blauton.
+Professionelle responsive Community-Website für **WNLD Elite PMC / Wardogs NoLimits**.
 
-## Start
-Einfach `index.html` im Browser öffnen.
+## Lokal starten
 
-## Anpassen
-- Discord-Link: `app.js` → `discordUrl`
-- Server-IP: `app.js` → `serverIp`
-- Designbild: `assets/home-neutral.webp`
+```bash
+git clone https://github.com/redshoxx/Wardogs-NoLimits.git
+cd Wardogs-NoLimits
+npm install
+npm run dev
+```
 
-## Hinweis
-Diese Fassung priorisiert eine möglichst 1:1 visuelle Wiedergabe des Screenshots. Die Navigation und der große Discord-Button sind als echte Klickflächen umgesetzt; die Server-IP lässt sich per Klick kopieren.
+Danach die lokale Vite-Adresse im Browser öffnen, normalerweise:
+
+```text
+http://localhost:5173
+```
+
+## Build testen
+
+```bash
+npm run build
+npm run preview
+```
+
+## Serverdaten ändern
+
+Die zentralen Werte liegen oben in `app.js`:
+
+- `discordUrl`
+- `serverIp`
+- `currentPlayers`
+- `maxPlayers`
+- `map`
+
+## Design
+
+- responsive Desktop / Tablet / Mobile
+- dunkles neutrales Military-Design ohne dominanten Blauton
+- Live-Server-Panel
+- IP-Copy-Funktion
+- mobile Navigation
+- dezente Scroll-Reveals
+- barriereärmere Fokus- und Reduced-Motion-Unterstützung
+
+> Hinweis: Der Discord-Link ist aktuell auf `https://discord.com/` gesetzt. Für den finalen Join-Button bitte den echten Invite-Link in `app.js` eintragen.
