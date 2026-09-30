@@ -3,46 +3,337 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#07090b" />
-  <meta name="description" content="Wardogs NoLimits – Community Server" />
-  <title>Wardogs NoLimits</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta name="theme-color" content="#080a08" />
+  <meta name="description" content="Wardogs NoLimits – WNLD Elite PMC Community Server." />
+  <meta name="robots" content="index,follow" />
+  <title>Wardogs NoLimits | WNLD Elite PMC</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
-  <main class="stage" aria-label="Wardogs NoLimits Homepage">
-    <img class="design" alt="Wardogs NoLimits Community Website" draggable="false" />
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
 
-    <nav class="hotspots" aria-label="Hauptnavigation">
-      <a class="hotspot home" href="#" aria-label="Home"></a>
-      <a class="hotspot status" href="#server-status" aria-label="Server Status"></a>
-      <a class="hotspot discord-top" data-link="discord" href="#" aria-label="Discord"></a>
-      <a class="hotspot discord-main" data-link="discord" href="#" aria-label="Join Discord"></a>
-      <button class="hotspot server-ip" type="button" data-copy-ip aria-label="Server-IP kopieren"></button>
-    </nav>
+  <header class="site-header" id="top">
+    <div class="header-shell">
+      <a class="brand" href="#home" aria-label="Wardogs NoLimits Startseite">
+        <span class="brand-mark" aria-hidden="true">WN</span>
+        <span class="brand-copy">
+          <strong>WARDOGS</strong>
+          <span>NOLIMITS</span>
+        </span>
+      </a>
 
-    <section id="server-status" class="sr-only" aria-label="Server Status">
-      <h1>Wardogs NoLimits</h1>
-      <p>Server Status: Online</p>
-      <p>18 von 40 Spieler online</p>
-      <p>Map: The Island</p>
-      <p>Server-IP: 85.214.123.45:27015</p>
+      <button class="menu-toggle" type="button" aria-label="Navigation öffnen" aria-expanded="false" aria-controls="main-nav">
+        <span></span><span></span>
+      </button>
+
+      <nav class="main-nav" id="main-nav" aria-label="Hauptnavigation">
+        <a href="#home" class="nav-link active">Home</a>
+        <a href="#server" class="nav-link">Server</a>
+        <a href="#community" class="nav-link">Community</a>
+        <a href="#features" class="nav-link">Features</a>
+      </nav>
+
+      <a class="header-cta" data-discord-link href="#" target="_blank" rel="noopener noreferrer">
+        Discord
+        <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="home">
+      <img id="hero-art" class="hero-art" alt="" aria-hidden="true" draggable="false" />
+      <div class="hero-noise" aria-hidden="true"></div>
+      <div class="hero-grid" aria-hidden="true"></div>
+      <div class="hero-vignette" aria-hidden="true"></div>
+
+      <div class="container hero-layout">
+        <div class="hero-copy" data-reveal>
+          <div class="eyebrow">
+            <span class="eyebrow-line"></span>
+            WNLD / ELITE PMC
+          </div>
+
+          <div class="live-pill">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span>SERVER ONLINE</span>
+            <span class="live-pill-divider"></span>
+            <span data-player-short>18 / 40</span>
+          </div>
+
+          <h1>
+            <span>WARDOGS</span>
+            <em>NOLIMITS</em>
+          </h1>
+
+          <p class="hero-lead">
+            Eine fokussierte Wardogs-Community für Spieler, die saubere Kommunikation,
+            stabile Server und intensive PvP-Missionen suchen.
+          </p>
+
+          <div class="hero-actions">
+            <a class="button button-primary" data-discord-link href="#" target="_blank" rel="noopener noreferrer">
+              <span class="button-icon" aria-hidden="true">◉</span>
+              Discord beitreten
+              <span class="button-arrow" aria-hidden="true">→</span>
+            </a>
+            <a class="button button-ghost" href="#server">Server ansehen</a>
+          </div>
+
+          <div class="hero-meta" aria-label="Server Highlights">
+            <span><b>01</b> Active Community</span>
+            <span><b>02</b> Stable Server</span>
+            <span><b>03</b> PvP Missions</span>
+          </div>
+        </div>
+
+        <aside class="server-card" id="server-status" data-reveal>
+          <div class="server-card-top">
+            <div>
+              <span class="panel-kicker">LIVE SERVER</span>
+              <h2>WNLD Main Server</h2>
+            </div>
+            <span class="online-badge">
+              <i></i>
+              ONLINE
+            </span>
+          </div>
+
+          <div class="server-stats">
+            <div class="stat-block">
+              <span class="stat-label">SPIELER</span>
+              <strong data-player-count>18 <small>/ 40</small></strong>
+              <div class="capacity-bar" aria-hidden="true"><span data-capacity-bar></span></div>
+            </div>
+
+            <div class="stat-split">
+              <div>
+                <span class="stat-label">MAP</span>
+                <strong data-map>The Island</strong>
+              </div>
+              <div>
+                <span class="stat-label">REGION</span>
+                <strong>EU</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="server-address">
+            <div>
+              <span class="stat-label">SERVER-IP</span>
+              <code data-server-ip>85.214.123.45:27015</code>
+            </div>
+            <button class="copy-button" type="button" data-copy-ip>
+              <span class="copy-icon" aria-hidden="true"></span>
+              Kopieren
+            </button>
+          </div>
+
+          <div class="server-card-foot">
+            <span><i class="mini-dot"></i> Betriebsbereit</span>
+            <span>WNLD // 01</span>
+          </div>
+        </aside>
+      </div>
+
+      <a class="scroll-cue" href="#server" aria-label="Weiter zum Server">
+        <span>SCROLL</span>
+        <i></i>
+      </a>
     </section>
 
-    <div class="toast" role="status" aria-live="polite">Server-IP kopiert</div>
+    <section class="signal-strip" aria-label="Community Merkmale">
+      <div class="signal-track">
+        <span>WARDOGS NOLIMITS</span><i></i>
+        <span>WNLD ELITE PMC</span><i></i>
+        <span>NO RULES. NO LIMITS.</span><i></i>
+        <span>COMMUNITY FIRST</span><i></i>
+        <span>PVP MISSIONS</span><i></i>
+        <span>WARDOGS NOLIMITS</span>
+      </div>
+    </section>
+
+    <section class="section server-section" id="server">
+      <div class="container">
+        <div class="section-heading" data-reveal>
+          <div>
+            <span class="section-index">01 / SERVER</span>
+            <h2>Direkt ins Gefecht.</h2>
+          </div>
+          <p>
+            Alle wichtigen Serverdaten auf einen Blick. Keine unnötigen Menüs,
+            keine Umwege – IP kopieren und loslegen.
+          </p>
+        </div>
+
+        <div class="server-overview" data-reveal>
+          <div class="server-main">
+            <div class="server-main-head">
+              <div class="server-symbol" aria-hidden="true">
+                <span></span><span></span><span></span>
+              </div>
+              <div>
+                <span class="panel-kicker">WARDOGS / PUBLIC</span>
+                <h3>WNLD Elite PMC</h3>
+              </div>
+            </div>
+
+            <div class="server-info-grid">
+              <div class="info-cell">
+                <span>Status</span>
+                <strong class="online-text"><i></i> Online</strong>
+              </div>
+              <div class="info-cell">
+                <span>Spieler</span>
+                <strong data-player-short>18 / 40</strong>
+              </div>
+              <div class="info-cell">
+                <span>Map</span>
+                <strong data-map>The Island</strong>
+              </div>
+              <div class="info-cell">
+                <span>Region</span>
+                <strong>Europe</strong>
+              </div>
+            </div>
+
+            <button class="ip-banner" type="button" data-copy-ip>
+              <span>
+                <small>SERVER ADDRESS</small>
+                <b data-server-ip>85.214.123.45:27015</b>
+              </span>
+              <span class="ip-banner-action">
+                IP kopieren
+                <b aria-hidden="true">→</b>
+              </span>
+            </button>
+          </div>
+
+          <div class="server-side">
+            <span class="section-index">QUICK INFO</span>
+            <h3>Bereit, wenn du es bist.</h3>
+            <p>
+              Der Serverbereich ist bewusst kompakt gehalten. Status, Spielerzahl,
+              Map und Adresse bleiben jederzeit schnell erreichbar.
+            </p>
+            <a href="#community" class="text-link">Zur Community <span>↘</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section feature-section" id="features">
+      <div class="container">
+        <div class="section-heading compact" data-reveal>
+          <div>
+            <span class="section-index">02 / FEATURES</span>
+            <h2>Auf das Wesentliche reduziert.</h2>
+          </div>
+        </div>
+
+        <div class="feature-grid">
+          <article class="feature-card" data-reveal>
+            <span class="feature-number">01</span>
+            <div class="feature-icon users-icon" aria-hidden="true">
+              <i></i><i></i><i></i>
+            </div>
+            <h3>Community</h3>
+            <p>Aktive Spieler, direkte Kommunikation und ein gemeinsamer Fokus auf gute Runden.</p>
+            <span class="feature-tag">ACTIVE</span>
+          </article>
+
+          <article class="feature-card" data-reveal>
+            <span class="feature-number">02</span>
+            <div class="feature-icon shield-icon" aria-hidden="true"></div>
+            <h3>Stable Server</h3>
+            <p>Klare Serverinformationen und ein Setup, das Spielern den Einstieg einfach macht.</p>
+            <span class="feature-tag">STABLE</span>
+          </article>
+
+          <article class="feature-card" data-reveal>
+            <span class="feature-number">03</span>
+            <div class="feature-icon target-icon" aria-hidden="true"></div>
+            <h3>PvP Missions</h3>
+            <p>Action-orientierte Sessions mit taktischem Fokus und Raum für eingespielte Squads.</p>
+            <span class="feature-tag">PVP</span>
+          </article>
+
+          <article class="feature-card" data-reveal>
+            <span class="feature-number">04</span>
+            <div class="feature-icon bolt-icon" aria-hidden="true">↯</div>
+            <h3>No Limits</h3>
+            <p>Ein klarer Community-Auftritt ohne überladenes Regelwerk oder unnötige Ablenkung.</p>
+            <span class="feature-tag">WNLD</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="community-section" id="community">
+      <div class="community-backdrop" aria-hidden="true"></div>
+      <div class="container community-inner" data-reveal>
+        <div class="community-copy">
+          <span class="section-index">03 / COMMUNITY</span>
+          <h2>Dein Squad.<br />Deine Mission.</h2>
+          <p>
+            Join dem Discord, finde Mitspieler und bleib bei Server-Infos und Community-Updates auf dem Laufenden.
+          </p>
+        </div>
+
+        <div class="community-cta">
+          <a class="discord-card" data-discord-link href="#" target="_blank" rel="noopener noreferrer">
+            <span class="discord-orb" aria-hidden="true">◉</span>
+            <span>
+              <small>WARDOGS NOLIMITS</small>
+              <strong>JOIN DISCORD</strong>
+            </span>
+            <b aria-hidden="true">↗</b>
+          </a>
+          <p>No Rules. No Limits. <span>WNLD</span></p>
+        </div>
+      </div>
+    </section>
   </main>
 
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <a class="brand footer-brand" href="#top">
+        <span class="brand-mark" aria-hidden="true">WN</span>
+        <span class="brand-copy">
+          <strong>WARDOGS</strong>
+          <span>NOLIMITS</span>
+        </span>
+      </a>
+      <p>WNLD Elite PMC Community</p>
+      <div class="footer-links">
+        <a href="#server">Server</a>
+        <a data-discord-link href="#" target="_blank" rel="noopener noreferrer">Discord</a>
+        <a href="#top">Nach oben ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast" role="status" aria-live="polite">
+    <span class="status-dot"></span>
+    <span data-toast-text>Server-IP kopiert</span>
+  </div>
+
   <script>window.__WARDOGS_IMG = "";</script>
-  <script src="assets/image-part-00.js"></script>
-  <script src="assets/image-part-01.js"></script>
-  <script src="assets/image-part-02.js"></script>
-  <script src="assets/image-part-03.js"></script>
-  <script src="assets/image-part-04.js"></script>
-  <script src="assets/image-part-05.js"></script>
-  <script src="assets/image-part-06.js"></script>
-  <script src="assets/image-part-07.js"></script>
-  <script src="assets/image-part-08.js"></script>
-  <script src="assets/image-part-09.js"></script>
-  <script src="assets/image-part-10.js"></script>
-  <script src="app.js"></script>
+  <script src="/assets/image-part-00.js"></script>
+  <script src="/assets/image-part-01.js"></script>
+  <script src="/assets/image-part-02.js"></script>
+  <script src="/assets/image-part-03.js"></script>
+  <script src="/assets/image-part-04.js"></script>
+  <script src="/assets/image-part-05.js"></script>
+  <script src="/assets/image-part-06.js"></script>
+  <script src="/assets/image-part-07.js"></script>
+  <script src="/assets/image-part-08.js"></script>
+  <script src="/assets/image-part-09.js"></script>
+  <script src="/assets/image-part-10.js"></script>
+  <script src="/app.js"></script>
 </body>
 </html>
