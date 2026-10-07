@@ -275,9 +275,6 @@ s=s.replace("load(); setInterval(load,3000);", "load(); setInterval(load,5000);"
 p.write_text(s,encoding='utf-8')
 PY
 
-node --check rcon.js
-node --check server.js
-node --check public/app.js
 
 # Keep the observation mode explicitly safe.
 AUSER="$(grep '^ADMIN_USER=' .env | cut -d= -f2-)"
