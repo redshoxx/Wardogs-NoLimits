@@ -19,9 +19,9 @@ const baseUrl = process.env.WARDOGS_RCON_URL?.trim()?.replace(/\/+$/,'');
 const token = process.env.WARDOGS_RCON_TOKEN?.trim();
 const enabled = Boolean(baseUrl && token);
 
-const CAPABILITY_REFRESH_MS = 5 * 60 * 1000;
-const MIN_BETWEEN_RCON_REQUESTS_MS = 175;
-const MAX_BACKOFF_MS = 60 * 1000;
+const CAPABILITY_REFRESH_MS = 30 * 60 * 1000;
+const MIN_BETWEEN_RCON_REQUESTS_MS = 750;
+const MAX_BACKOFF_MS = 5 * 60 * 1000;
 
 let timer = null;
 let latest = {
@@ -102,8 +102,9 @@ export async function testRcon(){
   const t=Date.now();
   const status=await request('GET','/v1/status');
   await sleep(MIN_BETWEEN_RCON_REQUESTS_MS);
-  const capabilities=await request('GET','/v1/capabilities');
-  return {ok:true,latencyMs:Date.now()-t,status,capabilities};
+  const playerResp=await request('GET','/v1/players');
+  const players=Array.isArray(playerResp)?playerResp:(playerResp.players||[]);
+  return {ok:true,latencyMs:Date.now()-t,status,playerCount:players.length};
 }
 
 export async function startRconWatcher(){
@@ -113,7 +114,7 @@ export async function startRconWatcher(){
     return;
   }
   await tick().catch(()=>{});
-  const ms = Math.max(5000,Number(getSettings().rcon_poll_ms || 5000));
+  const ms = Math.max(30000,Number(getSettings().rcon_poll_ms || 30000));
   timer=setInterval(()=>tick().catch(()=>{}),ms);
 }
 export async function stopRconWatcher(){ if(timer)clearInterval(timer); }
@@ -124,8 +125,6 @@ async function tick(){
   tickRunning=true;
   const t0=Date.now();
   try{
-    await refreshCapabilities(false);
-    await sleep(MIN_BETWEEN_RCON_REQUESTS_MS);
     const status=await request('GET','/v1/status');
     await sleep(MIN_BETWEEN_RCON_REQUESTS_MS);
     const playerResp=await request('GET','/v1/players');
@@ -155,13 +154,17 @@ async function tick(){
     knownIds=nowIds;
 
     await handleMatchLifecycle(status,players);
-    await applyJoinAssignments(players,latest.capabilities,activeFactions);
+    const actionSettings=getSettings();
+    if(actionSettings.auto_apply_on_join || actionSettings.auto_mid_match){
+      try{ await refreshCapabilities(false); }catch(e){ latest.lastError='Capabilities: '+String(e?.message||e); }
+      await applyJoinAssignments(players,latest.capabilities,activeFactions);
+    }
     lastStatus=status;
   }catch(err){
     const is429=Number(err?.status)===429;
     if(is429){
       consecutive429++;
-      const retryMs=Math.min(MAX_BACKOFF_MS,err?.retryAfterMs || (5000*Math.pow(2,Math.min(3,consecutive429-1))));
+      const retryMs=Math.min(MAX_BACKOFF_MS,err?.retryAfterMs || Math.max(60000,30000*Math.pow(2,Math.min(3,consecutive429-1))));
       backoffUntil=Date.now()+retryMs;
       latest={
         ...latest,
@@ -269,7 +272,7 @@ p.write_text(s,encoding='utf-8')
 
 p=Path('public/app.js')
 s=p.read_text(encoding='utf-8')
-s=s.replace("  $('round').textContent='RCON: '+(rcon.connected?'LIVE':'DEMO/OFFLINE');", "  $('round').textContent='RCON: '+(rcon.connected?(rcon.throttled?'LIVE / BACKOFF':'LIVE'):'OFFLINE');")
+s=s.replace("  $('round').textContent='RCON: '+(rcon.connected?'LIVE':'DEMO/OFFLINE');", "  $('round').textContent='RCON: '+(rcon.connected?(rcon.throttled?'LIVE / BACKOFF':'LIVE'):(rcon.throttled?'RATE LIMIT / WAITING':'OFFLINE'));")
 s=s.replace("    <div class=\"status-line\"><span><i class=\"dot ${rcon.connected?'':'bad'}\"></i>Verbindung</span><b>${rcon.connected?'OK':'OFF'}</b></div>", "    <div class=\"status-line\"><span><i class=\"dot ${rcon.connected?'':'bad'}\"></i>Verbindung</span><b>${rcon.connected?(rcon.throttled?'BACKOFF':'OK'):'OFF'}</b></div>")
 s=s.replace("load(); setInterval(load,3000);", "load(); setInterval(load,5000);")
 p.write_text(s,encoding='utf-8')
