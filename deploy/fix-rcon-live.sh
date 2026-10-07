@@ -292,16 +292,13 @@ for i in $(seq 1 30); do
   sleep 1
 done
 
-curl -fsS -u "$AUSER:$APASS" -H 'Content-Type: application/json' \
-  -d '{"auto_apply_on_join":false,"auto_mid_match":false,"rcon_poll_ms":5000}' \
-  http://127.0.0.1:4180/api/settings >/dev/null
 
 echo 'PATCH_OK'
 echo 'Warte auf Live-RCON...'
 for i in $(seq 1 18); do
   STATE="$(curl -fsS -u "$AUSER:$APASS" http://127.0.0.1:4180/api/state 2>/dev/null || true)"
   if printf '%s' "$STATE" | grep -q '"connected":true'; then
-    printf '%s' "$STATE" | python3 -c 'import json,sys; d=json.load(sys.stdin); r=d["rcon"]; s=r.get("status") or {}; p=s.get("players") or {}; print("RCON_CONNECTED=true"); print("SERVER="+str(s.get("serverName","?"))); print("MAP="+str(s.get("map","?"))); print("PLAYERS="+str(p.get("current","?"))+"/"+str(p.get("max","?"))); print("LIVE_ROWS="+str(len(r.get("players") or []))); print("THROTTLED="+str(bool(r.get("throttled"))).lower()); st=d.get("settings") or {}; print("AUTO_JOIN="+str(bool(st.get("auto_apply_on_join"))).lower()); print("AUTO_MID="+str(bool(st.get("auto_mid_match"))).lower())'
+    printf '%s' "$STATE" | python3 -c 'import json,sys; d=json.load(sys.stdin); r=d["rcon"]; s=r.get("status") or {}; p=s.get("players") or {}; print("RCON_CONNECTED=true"); print("SERVER="+str(s.get("serverName","?"))); print("MAP="+str(s.get("map","?"))); print("PLAYERS="+str(p.get("current","?"))+"/"+str(p.get("max","?"))); print("LIVE_ROWS="+str(len(r.get("players") or []))); print("THROTTLED="+str(bool(r.get("throttled"))).lower()); st=d.get("settings") or {}; print("AUTO_JOIN="+str(bool(st.get("auto_apply_on_join"))).lower()); print("AUTO_MID="+str(bool(st.get("auto_mid_match"))).lower()); print("POLL_MS="+str(st.get("rcon_poll_ms","?")))'
     exit 0
   fi
   sleep 5
